@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import styled from 'styled-components'
-import { ToastContainer, toast } from 'react-toastify'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -11,13 +11,13 @@ const InputName = styled.input`
   height: 40px;
   padding: 2px 7px;
   margin: 12px 0;
-`
+`;
 
 const CurrentStatus = styled.div`
   font-size: 19px;
   margin: 8px 0 12px 0;
   font-weight: bold;
-`
+`;
 
 const IscCompletedButton = styled.button`
   color: #fff;
@@ -28,7 +28,7 @@ const IscCompletedButton = styled.button`
   border: none;
   border-radius: 3px;
   cursor: pointer;
-`
+`;
 
 const EditButton = styled.button`
   color: white;
@@ -39,7 +39,7 @@ const EditButton = styled.button`
   background: #0ac620;
   border-radius: 3px;
   border: none;
-`
+`;
 
 const DeleteButton = styled.button`
   color: #fff;
@@ -50,83 +50,83 @@ const DeleteButton = styled.button`
   border-radius: 3px;
   border: none;
   cursor: pointer;
-`
+`;
 
-function EditTodo(props) {
+const EditTodo = (props) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const initialTodoState = {
     id: null,
-    name: "",
-    is_completed: false
+    name: '',
+    is_completed: false,
   };
 
   const [currentTodo, setcCurrentTodo] = useState(initialTodoState);
 
   const notify = () => {
-    toast.success("Todo successfully updated!", {
-      position: "bottom-center",
-      hideProgressBar: true
+    toast.success('Todo successfully updated!', {
+      position: 'bottom-center',
+      hideProgressBar: true,
     });
-  }
+  };
 
-  const getTodo = id => {
+  const getTodo = (id) => {
     axios.get(`/api/v1/todos/${id}`)
-    .then(resp => {
-      setcCurrentTodo(resp.data);
-    })
-    .catch(e => {
-      console.log(e)
-    });
+      .then((resp) => {
+        setcCurrentTodo(resp.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   useEffect(() => {
     getTodo(id);
   }, [props]);
-  
-  const handleInputChange = event => {
+
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setcCurrentTodo({ ...currentTodo, [name]: value });
   };
 
   const updateIsCompleted = (val) => {
-    var data = {
+    const data = {
       id: val.id,
       name: val.name,
-      is_completed: !val.is_completed
+      is_completed: !val.is_completed,
     };
     axios.patch(`/api/v1/todos/${val.id}`, data)
-    .then(resp => {
-      setcCurrentTodo(resp.data);
-    })
-    navigate("/todos", { replace: true });
+      .then((resp) => {
+        setcCurrentTodo(resp.data);
+      });
+    navigate('/todos', { replace: true });
   };
 
   const updateTodo = () => {
     axios.patch(`/api/v1/todos/${currentTodo.id}`, currentTodo)
-    .then(response => {
-      notify();
-      props.history.push("/todos");
-    })
-    .catch(e => {
-      console.log(e);
-    });
-    navigate("/todos", { replace: true });
+      .then((resp) => {
+        notify();
+        props.history.push('/todos');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    navigate('/todos', { replace: true });
   };
 
   const deleteTodo = () => {
     const sure = window.confirm('Are you sure?');
     if (sure) {
       axios.delete(`/api/v1/todos/${currentTodo.id}`)
-      .then(resp => {
-        console.log(resp.data);
-        props.history.push(".todos");
-      })
-      .catch(e => {
-        console.log(e);
-      });
-      navigate("/todos", { replace: true });
+        .then((resp) => {
+          console.log(resp.data);
+          props.history.push('.todos');
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      navigate('/todos', { replace: true });
     }
   };
 
@@ -144,9 +144,10 @@ function EditTodo(props) {
             onChange={handleInputChange}
           />
           <div>
-            <span>CurrentStatus</span><br/>
+            <span>CurrentStatus</span>
+            <br />
             <CurrentStatus>
-              {currentTodo.is_completed ? "Completed" : "UnCompleted"}
+              {currentTodo.is_completed ? 'Completed' : 'UnCompleted'}
             </CurrentStatus>
           </div>
         </div>
@@ -179,9 +180,9 @@ function EditTodo(props) {
           Delete
         </DeleteButton>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
-  )
-}
+  );
+};
 
-export default EditTodo
+export default EditTodo;
