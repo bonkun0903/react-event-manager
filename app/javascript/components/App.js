@@ -60,7 +60,7 @@ const App = () => (
         </NavItem>
         <NavItem>
           <Link to="/todos/new">
-            Add New Todo
+            TODOの追加
           </Link>
         </NavItem>
       </NavItems>
