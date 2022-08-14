@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  root to: redirect('/todos')
+  root to: redirect('/events')
   
   get 'todos', to: 'site#index'
   get 'todos/new', to: 'site#index'
   get 'todos/:id/edit', to: 'site#index'
+
   get 'events', to: 'site#index'
+  get 'events/new', to: 'site#index'
+  get 'events/:id', to: 'site#index'
+  get 'events/:id/:edit', to: 'site#index'
 
   namespace :api do
     namespace :v1 do

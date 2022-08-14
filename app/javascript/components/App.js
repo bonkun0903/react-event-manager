@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Route, Link, Routes, Outlet,
-} from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-import AddTodo from './AddTodo';
-import TodoList from './TodoList';
-import EditTodo from './EditTodo';
-import EventList from './EventList';
 import './App.css';
 
 const Navbar = styled.nav`
@@ -60,7 +54,7 @@ const App = () => (
         </NavItem>
         <NavItem>
           <Link to="/todos/new">
-            TODOの追加
+            Add New Todo
           </Link>
         </NavItem>
       </NavItems>
